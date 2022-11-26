@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker build -t new-computer --build-arg TAGS=install .
+
