@@ -1,0 +1,34 @@
+- name: Install ZSH
+  become: true
+  apt:
+    name: [ "zsh" ]
+  tags: install
+    
+- name: Change shell to zsh
+  become: true
+  shell: chsh -s $(which zsh)
+  tags: install
+
+- name: Check that the somefile.conf exists
+  stat:
+    path: /home/ronron/.oh-my-zsh
+  register: oh_my_stats
+  tags: install
+
+- name: Oh-My-Zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+  tags: install
+  when: oh_my_stats.stat.exists == False
+  become_user: ronron
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+  tags: install
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+  tags: install
