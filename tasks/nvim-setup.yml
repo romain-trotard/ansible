@@ -40,4 +40,12 @@
   tags:
     - install
     - neovim
+- name: Neovim Plugin RipGrep
+  become: true
+  apt:
+    name: [ "ripgrep" ]
+  tags:
+    - install
+    - neovim
+
 

@@ -11,6 +11,8 @@
   npm:
     name: typescript-language-server
     global: yes
+    # seems that early version has SyntaxError pb
+    version: 0.11.2
   tags:
     - install
     - node
